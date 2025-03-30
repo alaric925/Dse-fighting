@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA 2K MyCareer 屬性升級系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding-top: 20px;
+        }
+        input[type="number"], select {
+            width: 100px;
+            margin: 5px;
+        }
+        input[type="button"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NBA 2K MyCareer 屬性升級系統</h1>
+
+        <!-- 原始屬性輸入 -->
+        <div class="section">
+            <h2>輸入原始屬性</h2>
+            <label>近距離投籃：</label><input type="number" id="closeShot" value="50">
+            <label>中距離投籃：</label><input type="number" id="midRange" value="50">
+            <label>三分球：</label><input type="number" id="threePoint" value="50">
+            <label>罰球：</label><input type="number" id="freeThrow" value="50"><br>
+            <label>上籃：</label><input type="number" id="layup" value="50">
+            <label>灌籃：</label><input type="number" id="drivingDunk" value="50">
+            <label>站立灌籃：</label><input type="number" id="standingDunk" value="50">
+            <label>運球：</label><input type="number" id="ballHandle" value="50"><br>
+            <label>傳球精準度：</label><input type="number" id="passAccuracy" value="50">
+            <label>外圍防守：</label><input type="number" id="perimeterDefense" value="50">
+            <label>內線防守：</label><input type="number" id="interiorDefense" value="50"><br>
+            <label>搶斷：</label><input type="number" id="steal" value="50">
+            <label>蓋帽：</label><input type="number" id="block" value="50">
+            <label>進攻籃板：</label><input type="number" id="offensiveRebound" value="50">
+            <label>防守籃板：</label><input type="number" id="defensiveRebound" value="50"><br>
+            <label>速度：</label><input type="number" id="speed" value="50">
+            <label>加速：</label><input type="number" id="acceleration" value="50">
+            <label>力量：</label><input type="number" id="strength" value="50"><br>
+            <label>耐力：</label><input type="number" id="stamina" value="50">
+            <label>垂直：</label><input type="number" id="vertical" value="50"><br>
+            <input type="button" value="儲存原始屬性" onclick="saveAttributes()">
+        </div>
+
+        <!-- 比賽數據輸入 -->
+        <div class="section">
+            <h2>輸入比賽數據</h2>
+            <label>得分：</label><input type="number" id="points"><br>
+            <label>助攻：</label><input type="number" id="assists"><br>
+            <label>籃板：</label><input type="number" id="rebounds"><br>
+            <label>搶斷：</label><input type="number" id="steals"><br>
+            <label>蓋帽：</label><input type="number" id="blocks"><br>
+            <label>失誤：</label><input type="number" id="turnovers"><br>
+            <label>上場時間（分鐘）：</label><input type="number" id="minutes"><br>
+            <input type="button" value="計算VC" onclick="calculateVC()">
+        </div>
+
+        <!-- 顯示VC -->
+        <div class="section">
+            <h2>當前 VC</h2>
+            <p id="vcAmount">VC: 0</p>
+        </div>
+
+        <!-- 屬性升級 -->
+        <div class="section">
+            <h2>升級屬性</h2>
+            <label>選擇屬性：</label>
+            <select id="attributeUpgrade">
+                <option value="closeShot">近距離投籃</option>
+                <option value="midRange">中距離投籃</option>
+                <option value="threePoint">三分球</option>
+                <option value="freeThrow">罰球</option>
+                <option value="layup">上籃</option>
+                <option value="drivingDunk">灌籃</option>
+                <option value="standingDunk">站立灌籃</option>
+                <option value="ballHandle">運球</option>
+                <option value="passAccuracy">傳球精準度</option>
+                <option value="perimeterDefense">外圍防守</option>
+                <option value="interiorDefense">內線防守</option>
+                <option value="steal">搶斷</option>
+                <option value="block">蓋帽</option>
+                <option value="offensiveRebound">進攻籃板</option>
+                <option value="defensiveRebound">防守籃板</option>
+                <option value="speed">速度</option>
+                <option value="acceleration">加速</option>
+                <option value="strength">力量</option>
+                <option value="stamina">耐力</option>
+                <option value="vertical">垂直</option>
+            </select>
+            <label>升級數量：</label><input type="number" id="upgradeAmount" value="1">
+            <input type="button" value="升級屬性" onclick="upgradeAttribute()">
+        </div>
+
+        <!-- 徽章升級 -->
+        <div class="section">
+            <h2>升級徽章</h2>
+            <label>選擇徽章：</label>
+            <select id="badgeUpgrades">
+                <option value="catchAndShoot">接球投籃</option>
+                <option value="deadeye">冷血射手</option>
+                <option value="limitlessRange">無限射程</option>
+                <option value="miniMarksman">迷你神射手</option>
+                <option value="setShotSpecialist">定點投籃專家</option>
+                <option value="shiftyShooter">靈活射手</option>
+                <option value="challenger">挑戰者</option>
+                <option value="glove">手套</option>
+                <option value="highFlyingDenier">高飛攔截者</option>
+                <option value="immovableEnforcer">不動執行者</option>
+                <option value="interceptor">攔截者</option>
+                <option value="offBallPest">無球纏人</option>
+                <option value="onBallMenace">持球威脅</option>
+                <option value="paintPatroller">禁區巡邏者</option>
+                <option value="pickDodger">擋拆閃避者</option>
+                <option value="postLockdown">背打封鎖</option>
+            </select>
+            <input type="button" value="升級徽章" onclick="upgradeBadge()">
+        </div>
+
+        <div class="section">
+            <input type="button" value="重設屬性與徽章" onclick="resetAttributes()">
+        </div>
+        
+        <div class="section">
+            <h2>最新屬性</h2>
+            <p id="finalAttributes"></p>
+        </div>
+    </div>
+
+    <script>
+        let originalAttributes = {
+            closeShot: 50, midRange: 50, threePoint: 50, freeThrow: 50, layup: 50,
+            drivingDunk: 50, standingDunk: 50, ballHandle: 50, passAccuracy: 50,
+            perimeterDefense: 50, interiorDefense: 50, steal: 50, block: 50,
+            offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
+            strength: 50, stamina: 50, vertical: 50
+        };
+
+        let badgeUpgrades = {};
+        let vcAmount = 0;
+
+        function updateAttributesDisplay() {
+            let attributesDisplay = '';
+            for (let attr in originalAttributes) {
+                attributesDisplay += `${                attributesDisplay += `${attr}: ${originalAttributes[attr]}<br>`;
+            }
+            document.getElementById('finalAttributes').innerHTML = attributesDisplay;
+        }
+
+        function saveAttributes() {
+            originalAttributes.closeShot = parseInt(document.getElementById("closeShot").value);
+            originalAttributes.midRange = parseInt(document.getElementById("midRange").value);
+            originalAttributes.threePoint = parseInt(document.getElementById("threePoint").value);
+            originalAttributes.freeThrow = parseInt(document.getElementById("freeThrow").value);
+            originalAttributes.layup = parseInt(document.getElementById("layup").value);
+            originalAttributes.drivingDunk = parseInt(document.getElementById("drivingDunk").value);
+            originalAttributes.standingDunk = parseInt(document.getElementById("standingDunk").value);
+            originalAttributes.ballHandle = parseInt(document.getElementById("ballHandle").value);
+            originalAttributes.passAccuracy = parseInt(document.getElementById("passAccuracy").value);
+            originalAttributes.perimeterDefense = parseInt(document.getElementById("perimeterDefense").value);
+            originalAttributes.interiorDefense = parseInt(document.getElementById("interiorDefense").value);
+            originalAttributes.steal = parseInt(document.getElementById("steal").value);
+            originalAttributes.block = parseInt(document.getElementById("block").value);
+            originalAttributes.offensiveRebound = parseInt(document.getElementById("offensiveRebound").value);
+            originalAttributes.defensiveRebound = parseInt(document.getElementById("defensiveRebound").value);
+            originalAttributes.speed = parseInt(document.getElementById("speed").value);
+            originalAttributes.acceleration = parseInt(document.getElementById("acceleration").value);
+            originalAttributes.strength = parseInt(document.getElementById("strength").value);
+            originalAttributes.stamina = parseInt(document.getElementById("stamina").value);
+            originalAttributes.vertical = parseInt(document.getElementById("vertical").value);
+            updateAttributesDisplay();
+        }
+
+        function calculateVC() {
+            const points = parseInt(document.getElementById("points").value) || 0;
+            const assists = parseInt(document.getElementById("assists").value) || 0;
+            const rebounds = parseInt(document.getElementById("rebounds").value) || 0;
+            const steals = parseInt(document.getElementById("steals").value) || 0;
+            const blocks = parseInt(document.getElementById("blocks").value) || 0;
+            const turnovers = parseInt(document.getElementById("turnovers").value) || 0;
+            const minutes = parseInt(document.getElementById("minutes").value) || 0;
+
+            vcAmount = points * 5 + assists * 3 + rebounds * 2 + steals * 3 + blocks * 3 - turnovers * 2 + minutes * 2;
+            document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+        }
+
+        function upgradeAttribute() {
+            const selectedAttribute = document.getElementById("attributeUpgrade").value;
+            const upgradeAmount = parseInt(document.getElementById("upgradeAmount").value) || 1;
+
+            if (vcAmount >= upgradeAmount * 10) {
+                originalAttributes[selectedAttribute] += upgradeAmount;
+                vcAmount -= upgradeAmount * 10;
+                document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+                updateAttributesDisplay();
+            } else {
+                alert("VC 不足，無法升級！");
+            }
+        }
+
+        function upgradeBadge() {
+            const selectedBadge = document.getElementById("badgeUpgrades").value;
+
+            if (!badgeUpgrades[selectedBadge]) {
+                badgeUpgrades[selectedBadge] = 1;
+            } else {
+                badgeUpgrades[selectedBadge] += 1;
+            }
+
+            alert(`${selectedBadge} 徽章已升級到 ${badgeUpgrades[selectedBadge]} 級`);
+        }
+
+        function resetAttributes() {
+            // 重設原始屬性
+            originalAttributes = {
+                closeShot: 50, midRange: 50, threePoint: 50, freeThrow: 50, layup: 50,
+                drivingDunk: 50, standingDunk: 50, ballHandle: 50, passAccuracy: 50,
+                perimeterDefense: 50, interiorDefense: 50, steal: 50, block: 50,
+                offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
+                strength: 50, stamina: 50, vertical: 50
+            };
+            badgeUpgrades = {};
+            vcAmount = 0;
+            updateAttributesDisplay();
+            document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+            alert("所有數據已重設！");
+        }
+    </script>
+</body>
+</html>
