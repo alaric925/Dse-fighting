@@ -7,28 +7,48 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
         }
         .container {
-            width: 50%;
+            width: 60%;
             margin: auto;
-            padding-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         input[type="number"], select {
             width: 100px;
             margin: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         input[type="button"] {
-            padding: 5px 10px;
+            padding: 8px 15px;
             background-color: #4CAF50;
             color: white;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            margin: 5px;
         }
         input[type="button"]:hover {
             background-color: #45a049;
         }
         .section {
             margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        label {
+            margin-right: 10px;
+        }
+        #finalAttributes {
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -36,48 +56,52 @@
     <div class="container">
         <h1>NBA 2K MyCareer 屬性升級系統</h1>
 
-        <!-- 原始屬性輸入 -->
+        <!-- 初始數據 -->
         <div class="section">
-            <h2>輸入原始屬性</h2>
+            <h2>初始數據</h2>
+            <h3>進攻屬性</h3>
             <label>近距離投籃：</label><input type="number" id="closeShot" value="50">
-            <label>中距離投籃：</label><input type="number" id="midRange" value="50">
-            <label>三分球：</label><input type="number" id="threePoint" value="50">
+            <label>中距離投籃：</label><input type="number" id="midRangeShot" value="50">
+            <label>三分球：</label><input type="number" id="threePointShot" value="50">
             <label>罰球：</label><input type="number" id="freeThrow" value="50"><br>
             <label>上籃：</label><input type="number" id="layup" value="50">
             <label>灌籃：</label><input type="number" id="drivingDunk" value="50">
             <label>站立灌籃：</label><input type="number" id="standingDunk" value="50">
-            <label>運球：</label><input type="number" id="ballHandle" value="50"><br>
+            <label>空中接力：</label><input type="number" id="alleyOop" value="50"><br>
+            <label>運球：</label><input type="number" id="ballHandle" value="50">
+            <label>控球速度：</label><input type="number" id="speedWithBall" value="50">
             <label>傳球精準度：</label><input type="number" id="passAccuracy" value="50">
+            <label>傳球視野：</label><input type="number" id="passVision" value="50"><br>
+            
+            <h3>防守/籃板屬性</h3>
             <label>外圍防守：</label><input type="number" id="perimeterDefense" value="50">
-            <label>內線防守：</label><input type="number" id="interiorDefense" value="50"><br>
+            <label>內線防守：</label><input type="number" id="interiorDefense" value="50">
             <label>搶斷：</label><input type="number" id="steal" value="50">
-            <label>蓋帽：</label><input type="number" id="block" value="50">
+            <label>蓋帽：</label><input type="number" id="block" value="50"><br>
             <label>進攻籃板：</label><input type="number" id="offensiveRebound" value="50">
             <label>防守籃板：</label><input type="number" id="defensiveRebound" value="50"><br>
+            
+            <h3>身體素質</h3>
             <label>速度：</label><input type="number" id="speed" value="50">
             <label>加速：</label><input type="number" id="acceleration" value="50">
-            <label>力量：</label><input type="number" id="strength" value="50"><br>
+            <label>敏捷性：</label><input type="number" id="agility" value="50"><br>
+            <label>力量：</label><input type="number" id="strength" value="50">
             <label>耐力：</label><input type="number" id="stamina" value="50">
-            <label>垂直：</label><input type="number" id="vertical" value="50"><br>
-            <input type="button" value="儲存原始屬性" onclick="saveAttributes()">
+            <label>垂直跳躍：</label><input type="number" id="vertical" value="50"><br>
+            <input type="button" value="儲存原始屬性 (Enter)" onclick="saveAttributes()">
         </div>
 
-        <!-- 比賽數據輸入 -->
+        <!-- 比賽數據 -->
         <div class="section">
-            <h2>輸入比賽數據</h2>
-            <label>得分：</label><input type="number" id="points"><br>
-            <label>助攻：</label><input type="number" id="assists"><br>
-            <label>籃板：</label><input type="number" id="rebounds"><br>
-            <label>搶斷：</label><input type="number" id="steals"><br>
-            <label>蓋帽：</label><input type="number" id="blocks"><br>
-            <label>失誤：</label><input type="number" id="turnovers"><br>
-            <label>上場時間（分鐘）：</label><input type="number" id="minutes"><br>
-            <input type="button" value="計算VC" onclick="calculateVC()">
-        </div>
-
-        <!-- 顯示VC -->
-        <div class="section">
-            <h2>當前 VC</h2>
+            <h2>比賽數據</h2>
+            <label>得分：</label><input type="number" id="points" value="0"><br>
+            <label>助攻：</label><input type="number" id="assists" value="0"><br>
+            <label>籃板：</label><input type="number" id="rebounds" value="0"><br>
+            <label>搶斷：</label><input type="number" id="steals" value="0"><br>
+            <label>蓋帽：</label><input type="number" id="blocks" value="0"><br>
+            <label>失誤：</label><input type="number" id="turnovers" value="0"><br>
+            <label>上場時間（分鐘）：</label><input type="number" id="minutes" value="0"><br>
+            <input type="button" value="計算並累積VC (Ctrl+Enter)" onclick="calculateVC()">
             <p id="vcAmount">VC: 0</p>
         </div>
 
@@ -87,14 +111,17 @@
             <label>選擇屬性：</label>
             <select id="attributeUpgrade">
                 <option value="closeShot">近距離投籃</option>
-                <option value="midRange">中距離投籃</option>
-                <option value="threePoint">三分球</option>
+                <option value="midRangeShot">中距離投籃</option>
+                <option value="threePointShot">三分球</option>
                 <option value="freeThrow">罰球</option>
                 <option value="layup">上籃</option>
                 <option value="drivingDunk">灌籃</option>
                 <option value="standingDunk">站立灌籃</option>
+                <option value="alleyOop">空中接力</option>
                 <option value="ballHandle">運球</option>
+                <option value="speedWithBall">控球速度</option>
                 <option value="passAccuracy">傳球精準度</option>
+                <option value="passVision">傳球視野</option>
                 <option value="perimeterDefense">外圍防守</option>
                 <option value="interiorDefense">內線防守</option>
                 <option value="steal">搶斷</option>
@@ -103,12 +130,13 @@
                 <option value="defensiveRebound">防守籃板</option>
                 <option value="speed">速度</option>
                 <option value="acceleration">加速</option>
+                <option value="agility">敏捷性</option>
                 <option value="strength">力量</option>
                 <option value="stamina">耐力</option>
-                <option value="vertical">垂直</option>
+                <option value="vertical">垂直跳躍</option>
             </select>
             <label>升級數量：</label><input type="number" id="upgradeAmount" value="1">
-            <input type="button" value="升級屬性" onclick="upgradeAttribute()">
+            <input type="button" value="升級屬性 (Shift+Enter)" onclick="upgradeAttribute()">
         </div>
 
         <!-- 徽章升級 -->
@@ -116,78 +144,126 @@
             <h2>升級徽章</h2>
             <label>選擇徽章：</label>
             <select id="badgeUpgrades">
-                <option value="catchAndShoot">接球投籃</option>
-                <option value="deadeye">冷血射手</option>
-                <option value="limitlessRange">無限射程</option>
-                <option value="miniMarksman">迷你神射手</option>
-                <option value="setShotSpecialist">定點投籃專家</option>
-                <option value="shiftyShooter">靈活射手</option>
-                <option value="challenger">挑戰者</option>
-                <option value="glove">手套</option>
-                <option value="highFlyingDenier">高飛攔截者</option>
-                <option value="immovableEnforcer">不動執行者</option>
-                <option value="interceptor">攔截者</option>
-                <option value="offBallPest">無球纏人</option>
-                <option value="onBallMenace">持球威脅</option>
-                <option value="paintPatroller">禁區巡邏者</option>
-                <option value="pickDodger">擋拆閃避者</option>
-                <option value="postLockdown">背打封鎖</option>
+                <optgroup label="內線得分">
+                    <option value="aerialWizard">空中精靈</option>
+                    <option value="floatGame">漂浮技巧</option>
+                    <option value="hookSpecialist">勾手專家</option>
+                    <option value="layupMixmaster">上籃大師</option>
+                    <option value="paintProdigy">內線天才</option>
+                    <option value="physicalFinisher">硬派終結者</option>
+                    <option value="postFadePhenom">背打淡出天才</option>
+                    <option value="postPowerhouse">背打強者</option>
+                    <option value="postUpPoet">背打詩人</option>
+                    <option value="riseUp">崛起</option>
+                </optgroup>
+                <optgroup label="外線得分">
+                    <option value="catchAndShoot">接球投籃</option>
+                    <option value="deadeye">冷血射手</option>
+                    <option value="limitlessRange">無限射程</option>
+                    <option value="miniMarksman">迷你神射手</option>
+                    <option value="setShotSpecialist">定點投籃專家</option>
+                    <option value="shiftyShooter">靈活射手</option>
+                </optgroup>
+                <optgroup label="防守">
+                    <option value="challenger">挑戰者</option>
+                    <option value="glove">手套</option>
+                    <option value="highFlyingDenier">高飛攔截者</option>
+                    <option value="immovableEnforcer">不動執行者</option>
+                    <option value="interceptor">攔截者</option>
+                    <option value="offBallPest">無球纏人</option>
+                    <option value="onBallMenace">持球威脅</option>
+                    <option value="paintPatroller">禁區巡邏者</option>
+                    <option value="pickDodger">擋拆閃避者</option>
+                    <option value="postLockdown">背打封鎖</option>
+                </optgroup>
+                <optgroup label="組織">
+                    <option value="ankleAssassin">腳踝終結者</option>
+                    <option value="bailOut">救急傳球</option>
+                    <option value="dimer">助攻者</option>
+                    <option value="lightningLaunch">閃電啟動</option>
+                </optgroup>
+                <optgroup label="籃板">
+                    <option value="reboundChaser">籃板追逐者</option>
+                </optgroup>
+                <optgroup label="全能">
+                    <option value="pogoStick">彈簧人</option>
+                    <option value="posterizer">隔扣者</option>
+                </optgroup>
+                <optgroup label="通用進攻">
+                    <option value="brickWall">磚牆</option>
+                    <option value="slipperyOffBall">無球滑手</option>
+                </optgroup>
             </select>
-            <input type="button" value="升級徽章" onclick="upgradeBadge()">
+            <input type="button" value="升級徽章 (Alt+Enter)" onclick="upgradeBadge()">
         </div>
 
+        <!-- 重設 -->
         <div class="section">
-            <input type="button" value="重設屬性與徽章" onclick="resetAttributes()">
+            <input type="button" value="重設屬性與徽章 (Ctrl+R)" onclick="resetAttributes()">
+            <input type="button" value="VC歸零 (Ctrl+0)" onclick="resetVC()">
         </div>
-        
+
+        <!-- 最新屬性 -->
         <div class="section">
-            <h2>最新屬性</h2>
+            <h2>最新屬性與徽章</h2>
             <p id="finalAttributes"></p>
         </div>
     </div>
 
     <script>
         let originalAttributes = {
-            closeShot: 50, midRange: 50, threePoint: 50, freeThrow: 50, layup: 50,
-            drivingDunk: 50, standingDunk: 50, ballHandle: 50, passAccuracy: 50,
-            perimeterDefense: 50, interiorDefense: 50, steal: 50, block: 50,
-            offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
-            strength: 50, stamina: 50, vertical: 50
+            closeShot: 50, midRangeShot: 50, threePointShot: 50, freeThrow: 50, layup: 50,
+            drivingDunk: 50, standingDunk: 50, alleyOop: 50, ballHandle: 50, speedWithBall: 50,
+            passAccuracy: 50, passVision: 50, perimeterDefense: 50, interiorDefense: 50, steal: 50,
+            block: 50, offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
+            agility: 50, strength: 50, stamina: 50, vertical: 50
         };
 
         let badgeUpgrades = {};
         let vcAmount = 0;
+        const badgeLevels = ["青銅", "白銀", "黃金", "名人堂"];
 
         function updateAttributesDisplay() {
-            let attributesDisplay = '';
+            let display = "屬性:\n";
             for (let attr in originalAttributes) {
-                attributesDisplay += `${                attributesDisplay += `${attr}: ${originalAttributes[attr]}<br>`;
+                display += `${attr}: ${originalAttributes[attr]}\n`;
+                document.getElementById(attr).value = originalAttributes[attr]; // 同步更新初始數據輸入框
             }
-            document.getElementById('finalAttributes').innerHTML = attributesDisplay;
+            display += "\n徽章:\n";
+            for (let badge in badgeUpgrades) {
+                display += `${badge}: ${badgeLevels[badgeUpgrades[badge] - 1]}\n`;
+            }
+            document.getElementById('finalAttributes').innerHTML = display;
+            document.getElementById('vcAmount').innerHTML = `VC: ${vcAmount}`; // 確保VC顯示更新
         }
 
         function saveAttributes() {
-            originalAttributes.closeShot = parseInt(document.getElementById("closeShot").value);
-            originalAttributes.midRange = parseInt(document.getElementById("midRange").value);
-            originalAttributes.threePoint = parseInt(document.getElementById("threePoint").value);
-            originalAttributes.freeThrow = parseInt(document.getElementById("freeThrow").value);
-            originalAttributes.layup = parseInt(document.getElementById("layup").value);
-            originalAttributes.drivingDunk = parseInt(document.getElementById("drivingDunk").value);
-            originalAttributes.standingDunk = parseInt(document.getElementById("standingDunk").value);
-            originalAttributes.ballHandle = parseInt(document.getElementById("ballHandle").value);
-            originalAttributes.passAccuracy = parseInt(document.getElementById("passAccuracy").value);
-            originalAttributes.perimeterDefense = parseInt(document.getElementById("perimeterDefense").value);
-            originalAttributes.interiorDefense = parseInt(document.getElementById("interiorDefense").value);
-            originalAttributes.steal = parseInt(document.getElementById("steal").value);
-            originalAttributes.block = parseInt(document.getElementById("block").value);
-            originalAttributes.offensiveRebound = parseInt(document.getElementById("offensiveRebound").value);
-            originalAttributes.defensiveRebound = parseInt(document.getElementById("defensiveRebound").value);
-            originalAttributes.speed = parseInt(document.getElementById("speed").value);
-            originalAttributes.acceleration = parseInt(document.getElementById("acceleration").value);
-            originalAttributes.strength = parseInt(document.getElementById("strength").value);
-            originalAttributes.stamina = parseInt(document.getElementById("stamina").value);
-            originalAttributes.vertical = parseInt(document.getElementById("vertical").value);
+            originalAttributes.closeShot = parseInt(document.getElementById("closeShot").value) || 50;
+            originalAttributes.midRangeShot = parseInt(document.getElementById("midRangeShot").value) || 50;
+            originalAttributes.threePointShot = parseInt(document.getElementById("threePointShot").value) || 50;
+            originalAttributes.freeThrow = parseInt(document.getElementById("freeThrow").value) || 50;
+            originalAttributes.layup = parseInt(document.getElementById("layup").value) || 50;
+            originalAttributes.drivingDunk = parseInt(document.getElementById("drivingDunk").value) || 50;
+            originalAttributes.standingDunk = parseInt(document.getElementById("standingDunk").value) || 50;
+            originalAttributes.alleyOop = parseInt(document.getElementById("alleyOop").value) || 50;
+            originalAttributes.ballHandle = parseInt(document.getElementById("ballHandle").value) || 50;
+            originalAttributes.speedWithBall = parseInt(document.getElementById("speedWithBall").value) || 50;
+            originalAttributes.passAccuracy = parseInt(document.getElementById("passAccuracy").value) || 50;
+            originalAttributes.passVision = parseInt(document.getElementById("passVision").value) || 50;
+            originalAttributes.perimeterDefense = parseInt(document.getElementById("perimeterDefense").value) || 50;
+            originalAttributes.interiorDefense = parseInt(document.getElementById("interiorDefense").value) || 50;
+            originalAttributes.steal = parseInt(document.getElementById("steal").value) || 50;
+            originalAttributes.block = parseInt(document.getElementById("block").value) || 50;
+            originalAttributes.offensiveRebound = parseInt(document.getElementById("offensiveRebound").value) || 50;
+            originalAttributes.defensiveRebound = parseInt(document.getElementById("defensiveRebound").value) || 50;
+            originalAttributes.speed = parseInt(document.getElementById("speed").value) || 50;
+            originalAttributes.acceleration = parseInt(document.getElementById("acceleration").value) || 50;
+            originalAttributes.agility = parseInt(document.getElementById("agility").value) || 50;
+            originalAttributes.strength = parseInt(document.getElementById("strength").value) || 50;
+            originalAttributes.stamina = parseInt(document.getElementById("stamina").value) || 50;
+            originalAttributes.vertical = parseInt(document.getElementById("vertical").value) || 50;
             updateAttributesDisplay();
+            alert("原始屬性已儲存！");
         }
 
         function calculateVC() {
@@ -199,51 +275,120 @@
             const turnovers = parseInt(document.getElementById("turnovers").value) || 0;
             const minutes = parseInt(document.getElementById("minutes").value) || 0;
 
-            vcAmount = points * 5 + assists * 3 + rebounds * 2 + steals * 3 + blocks * 3 - turnovers * 2 + minutes * 2;
+            const newVCAmount = points * 5 + assists * 3 + rebounds * 2 + steals * 3 + blocks * 3 - turnovers * 2 + minutes * 2;
+            vcAmount += newVCAmount; // 累積VC
             document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+            updateAttributesDisplay();
+            alert(`本次獲得 ${newVCAmount} VC，已累積至 ${vcAmount} VC！`);
+        }
+
+        function getAttributeUpgradeCost(currentValue, upgradeAmount) {
+            let totalCost = 0;
+            for (let i = 0; i < upgradeAmount; i++) {
+                const value = currentValue + i;
+                if (value <= 70) totalCost += 100;
+                else if (value <= 85) totalCost += 250;
+                else if (value <= 95) totalCost += 500;
+                else if (value <= 99) totalCost += 1000;
+                else {
+                    alert("屬性已達上限 (99)！");
+                    return -1; // 表示無法升級
+                }
+            }
+            return totalCost;
         }
 
         function upgradeAttribute() {
             const selectedAttribute = document.getElementById("attributeUpgrade").value;
             const upgradeAmount = parseInt(document.getElementById("upgradeAmount").value) || 1;
+            const currentValue = originalAttributes[selectedAttribute];
+            const cost = getAttributeUpgradeCost(currentValue, upgradeAmount);
 
-            if (vcAmount >= upgradeAmount * 10) {
+            if (cost === -1) return; // 已達上限
+            if (vcAmount >= cost) {
                 originalAttributes[selectedAttribute] += upgradeAmount;
-                vcAmount -= upgradeAmount * 10;
+                vcAmount -= cost;
                 document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
                 updateAttributesDisplay();
+                alert(`${selectedAttribute} 已升級 ${upgradeAmount} 點，花费 ${cost} VC！`);
             } else {
-                alert("VC 不足，無法升級！");
+                alert("VC 不足，無法升級屬性！");
+            }
+        }
+
+        function getBadgeUpgradeCost(currentLevel) {
+            switch (currentLevel) {
+                case 0: return 500;  // 青銅
+                case 1: return 1000; // 白銀
+                case 2: return 2000; // 黃金
+                case 3: return 4000; // 名人堂
+                default: return -1;  // 已達上限
             }
         }
 
         function upgradeBadge() {
             const selectedBadge = document.getElementById("badgeUpgrades").value;
+            const currentLevel = badgeUpgrades[selectedBadge] || 0;
+            const cost = getBadgeUpgradeCost(currentLevel);
 
-            if (!badgeUpgrades[selectedBadge]) {
-                badgeUpgrades[selectedBadge] = 1;
-            } else {
-                badgeUpgrades[selectedBadge] += 1;
+            if (cost === -1) {
+                alert("徽章已達名人堂等級，無法再升級！");
+                return;
             }
-
-            alert(`${selectedBadge} 徽章已升級到 ${badgeUpgrades[selectedBadge]} 級`);
+            if (vcAmount >= cost) {
+                badgeUpgrades[selectedBadge] = currentLevel + 1;
+                vcAmount -= cost;
+                document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+                updateAttributesDisplay();
+                alert(`${selectedBadge} 已升級到 ${badgeLevels[currentLevel]}，花费 ${cost} VC！`);
+            } else {
+                alert("VC 不足，無法升級徽章！");
+            }
         }
 
         function resetAttributes() {
-            // 重設原始屬性
             originalAttributes = {
-                closeShot: 50, midRange: 50, threePoint: 50, freeThrow: 50, layup: 50,
-                drivingDunk: 50, standingDunk: 50, ballHandle: 50, passAccuracy: 50,
-                perimeterDefense: 50, interiorDefense: 50, steal: 50, block: 50,
-                offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
-                strength: 50, stamina: 50, vertical: 50
+                closeShot: 50, midRangeShot: 50, threePointShot: 50, freeThrow: 50, layup: 50,
+                drivingDunk: 50, standingDunk: 50, alleyOop: 50, ballHandle: 50, speedWithBall: 50,
+                passAccuracy: 50, passVision: 50, perimeterDefense: 50, interiorDefense: 50, steal: 50,
+                block: 50, offensiveRebound: 50, defensiveRebound: 50, speed: 50, acceleration: 50,
+                agility: 50, strength: 50, stamina: 50, vertical: 50
             };
             badgeUpgrades = {};
             vcAmount = 0;
-            updateAttributesDisplay();
             document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+            updateAttributesDisplay();
             alert("所有數據已重設！");
         }
+
+        function resetVC() {
+            vcAmount = 0;
+            document.getElementById("vcAmount").innerHTML = `VC: ${vcAmount}`;
+            updateAttributesDisplay();
+            alert("VC 已歸零！");
+        }
+
+        // 鍵盤功能
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+                saveAttributes();
+            } else if (event.ctrlKey && event.key === "Enter") {
+                calculateVC();
+            } else if (event.shiftKey && event.key === "Enter") {
+                upgradeAttribute();
+            } else if (event.altKey && event.key === "Enter") {
+                upgradeBadge();
+            } else if (event.ctrlKey && event.key === "r") {
+                event.preventDefault();
+                resetAttributes();
+            } else if (event.ctrlKey && event.key === "0") {
+                event.preventDefault();
+                resetVC();
+            }
+        });
+
+        // 初始化顯示
+        updateAttributesDisplay();
     </script>
 </body>
 </html>
